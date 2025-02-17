@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  labels:
+    name: dev-database
+  name: dev-database
+  namespace: dev
+spec:
+  enableSuperuserAccess: true
+  instances: 1
+  monitoring:
+    enablePodMonitor: true
+  storage:
+    size: 256Mi
