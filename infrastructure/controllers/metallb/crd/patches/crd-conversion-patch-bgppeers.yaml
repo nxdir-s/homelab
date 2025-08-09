@@ -1,0 +1,14 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: bgppeers.metallb.io
+spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      conversionReviewVersions: ["v1beta1", "v1beta2"]
+      clientConfig:
+        service:
+          namespace: metallb-system
+          name: metallb-webhook-service
+          path: /convert
