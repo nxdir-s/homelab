@@ -3,8 +3,8 @@ kind: Kustomization
 resources:
   - ns.yaml
   - exclude-l2-config.yaml
-  - ../crd
-  - ../rbac
-  - ../controllers
-  - ../webhook
+  - ./crd
+  - ./rbac
+  - ./controllers
+  - ./webhook
 namespace: metallb-system
