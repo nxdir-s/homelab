@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - base/externaldns.nginx.org_dnsendpoints.yaml
+  - base/k8s.nginx.org_globalconfigurations.yaml
+  - base/k8s.nginx.org_policies.yaml
+  - base/k8s.nginx.org_transportservers.yaml
+  - base/k8s.nginx.org_virtualserverroutes.yaml
+  - base/k8s.nginx.org_virtualservers.yaml
