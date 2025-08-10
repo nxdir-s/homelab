@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - l2-config.yaml
   - cluster-issuer.yaml
+  - longhorn-virtual-server.yaml
