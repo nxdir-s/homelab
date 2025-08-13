@@ -28,3 +28,6 @@ spec:
         name: longhorn
       version: v1.9.1
   interval: 30m
+  values:
+    longhornUI:
+      replicas: 1
