@@ -1,2 +1,7 @@
 secrets
 bin/
+unifi/
+mongodb/
+open-webui/
+homepage/
+home-assistant/

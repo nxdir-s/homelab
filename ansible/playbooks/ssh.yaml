@@ -1,0 +1,50 @@
+---
+- name: Enable SSH Key Authentication
+  hosts: "*"
+  become: true
+  become_user: root
+  tasks:
+    - name: Ensure authorized_keys directory exists
+      become_user: root
+      file:
+        path: "~/.ssh"
+        state: directory
+        mode: "0700"
+
+    - name: Copy id_rsa.pub content to authorized_keys
+      become_user: root
+      copy:
+        content: "{{ lookup('file', '/Users/nadir/.ssh/id_rsa.pub') }}"
+        dest: "~/.ssh/authorized_keys"
+        mode: "0600"
+
+    - name: Disable password-based authentication in SSH
+      become: yes
+      become_user: root
+      lineinfile:
+        path: "/etc/ssh/sshd_config"
+        regexp: "^(.*)PasswordAuthentication(.*)$"
+        line: "PasswordAuthentication no"
+
+    - name: Disable root authentication in SSH
+      become: yes
+      become_user: root
+      lineinfile:
+        path: "/etc/ssh/sshd_config"
+        regexp: "^(.*)PermitRootLogin(.*)$"
+        line: "PermitRootLogin no"
+
+    - name: Enable pub key authentication in SSH
+      become: yes
+      become_user: root
+      lineinfile:
+        path: "/etc/ssh/sshd_config"
+        regexp: "^(.*)PubkeyAuthentication(.*)$"
+        line: "PubkeyAuthentication yes"
+
+    - name: Restart SSH
+      become: yes
+      become_user: root
+      service:
+        name: ssh
+        state: restarted
