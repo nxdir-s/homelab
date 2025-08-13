@@ -6,4 +6,4 @@ resources:
   - ./nginx-ingress
   - ./cert-manager
   - ./external-dns
-  # - ./cloudnative-pg
+  - ./cloudnative-pg
