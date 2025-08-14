@@ -1,0 +1,21 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: pg-cluster-pgadmin4
+  namespace: postgresql
+spec:
+  host: pgadmin.nxdir.dev
+  tls:
+    secret: pgadmin-secret
+    cert-manager:
+      cluster-issuer: letsencrypt-issuer
+  externalDNS:
+    enable: true
+  upstreams:
+    - name: pgadmin
+      service: pg-cluster-pgadmin4
+      port: 80
+  routes:
+    - path: /
+      action:
+        pass: pgadmin
