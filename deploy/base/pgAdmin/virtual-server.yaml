@@ -13,7 +13,7 @@ spec:
     enable: true
   upstreams:
     - name: pgadmin
-      service: pg-cluster-pgadmin4
+      service: k3spi-postgres-pgadmin4
       port: 80
   routes:
     - path: /
