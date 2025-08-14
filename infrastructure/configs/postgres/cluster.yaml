@@ -7,7 +7,7 @@ metadata:
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: pg-cluster
+  name: k3spi-postgres
   namespace: postgresql
 spec:
   description: "k3spi postgres cluster"
@@ -29,10 +29,10 @@ spec:
 
   bootstrap:
     initdb:
-      database: dev
-      owner: dev
-      secret:
-        name: pg-cluster-dev-user
+      database: app
+      owner: app
+      # secret:
+      #   name: pg-cluster-dev-user
     # Alternative bootstrap method: start from a backup
     #recovery:
     #  backup:
