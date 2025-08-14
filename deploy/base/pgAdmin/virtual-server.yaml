@@ -1,7 +1,7 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: pg-cluster-pgadmin4
+  name: k3spi-postgres-pgadmin4
   namespace: postgresql
 spec:
   host: pgadmin.nxdir.dev
