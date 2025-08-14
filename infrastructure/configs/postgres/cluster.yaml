@@ -24,8 +24,8 @@ spec:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
       auto_explain.log_min_duration: "10s"
-    pg_hba:
-      - host all all all md5
+    # pg_hba:
+    #   - host all all all md5
 
   bootstrap:
     initdb:
@@ -40,7 +40,7 @@ spec:
 
   enableSuperuserAccess: true
   superuserSecret:
-    name: pg-cluster-superuser
+    name: k3spi-postgres-superuser
 
   storage:
     pvcTemplate:
