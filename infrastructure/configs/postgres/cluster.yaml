@@ -39,8 +39,8 @@ spec:
     #    name: backup-example
 
   enableSuperuserAccess: true
-  superuserSecret:
-    name: k3spi-postgres-superuser
+  # superuserSecret:
+  #   name: k3spi-postgres-superuser
 
   storage:
     pvcTemplate:
