@@ -51,7 +51,7 @@ spec:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 50Gi
+          storage: 100Gi
       storageClassName: pg-longhorn
       volumeMode: Filesystem
 
@@ -61,7 +61,7 @@ spec:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 20Gi
+          storage: 36Gi
       storageClassName: pg-longhorn
       volumeMode: Filesystem
 
