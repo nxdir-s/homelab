@@ -24,8 +24,8 @@ spec:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
       auto_explain.log_min_duration: "10s"
-    # pg_hba:
-    #   - host all all all md5
+    pg_hba:
+      - host all all all password
 
   bootstrap:
     initdb:
@@ -58,7 +58,7 @@ spec:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 5Gi
+          storage: 20Gi
       storageClassName: pg-longhorn
       volumeMode: Filesystem
 
