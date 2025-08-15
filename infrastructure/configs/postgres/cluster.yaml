@@ -27,6 +27,9 @@ spec:
     pg_hba:
       - host all all all password
 
+  monitoring:
+    enablePodMonitor: true
+
   bootstrap:
     initdb:
       database: app
