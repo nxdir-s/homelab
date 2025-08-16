@@ -1,0 +1,22 @@
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: actual-budget
+  namespace: finance
+spec:
+  host: budget.nxdir.dev
+  tls:
+    secret: actualbudget-tls
+    cert-manager:
+      cluster-issuer: letsencrypt-issuer
+  externalDNS:
+    enable: true
+  upstreams:
+    - name: actualbudget
+      service: actual-budget
+      port: 80
+  routes:
+    - path: /
+      action:
+        pass: actualbudget

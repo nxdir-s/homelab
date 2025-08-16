@@ -1,0 +1,57 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: actual-budget
+  namespace: finance
+spec:
+  interval: 24h
+  url: https://community-charts.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: actual-budget
+  namespace: finance
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: actualbudget
+      version: "1.8.1"
+      sourceRef:
+        kind: HelmRepository
+        name: actual-budget
+        namespace: finance
+  values:
+    replicaCount: 1
+    strategy:
+      type: Recreate
+
+    # Persistence
+    persistence:
+      enabled: true
+      size: 20Gi
+      accessModes:
+        - ReadWriteOnce
+
+    # File storage
+    files:
+      dataDirectory: /data
+      server: /data/server-files
+      user: /data/user-files
+
+    # Resources
+    resources:
+      # limits:
+      #   cpu: 500m
+      #   memory: 1Gi
+      requests:
+        cpu: 200m
+        memory: 256Mi
+
+    # Authentication (password-based)
+    login:
+      method: password
+      allowedLoginMethods:
+        - password
