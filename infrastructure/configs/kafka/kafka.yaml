@@ -26,7 +26,15 @@ spec:
       default.replication.factor: 3
       min.insync.replicas: 2
   entityOperator:
-    userOperator: {}
+    userOperator:
+      reconciliationIntervalMs: 60000
+      resources:
+        requests:
+          cpu: "1"
+          memory: 500Mi
+        limits:
+          cpu: "1"
+          memory: 500Mi
     topicOperator:
       reconciliationIntervalMs: 60000
       resources:
