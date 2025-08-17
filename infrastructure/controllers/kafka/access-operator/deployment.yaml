@@ -38,7 +38,7 @@ spec:
             - name: strimzi-tmp
               mountPath: /tmp
           resources:
-            limits: {}
+            limits:
             requests:
               memory: 256Mi
               cpu: 10m
