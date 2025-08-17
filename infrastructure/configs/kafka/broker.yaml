@@ -19,24 +19,6 @@ spec:
   resources:
     requests:
       memory: 512Mi
-      cpu: 100m
+      cpu: "1"
     limits:
       cpu: "1"
-  # template:
-  #   pod:
-  #     affinity:
-  #       podAntiAffinity:
-  #         requiredDuringSchedulingIgnoredDuringExecution:
-  #           - weight: 100
-  #             podAffinityTerm:
-  #               labelSelector:
-  #                 matchExpressions:
-  #                   - key: app.kubernetes.io/broker
-  #                     operator: Exists
-  #               topologyKey: "kubernetes.io/hostname"
-  #       nodeAffinity:
-  #         requiredDuringSchedulingIgnoredDuringExecution:
-  #           nodeSelectorTerms:
-  #             - matchExpressions:
-  #                 - key: node-role.kubernetes.io/cpu
-  #                   operator: Exists
