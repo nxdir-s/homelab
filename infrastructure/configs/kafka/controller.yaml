@@ -20,9 +20,8 @@ spec:
     requests:
       memory: 512Mi
       cpu: 100m
-    # limits:
-    #   memory: 64Gi
-    #   cpu: "12"
+    limits:
+      cpu: "1"
   # template:
   #   pod:
   #     affinity:
