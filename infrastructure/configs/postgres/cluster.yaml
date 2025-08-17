@@ -87,8 +87,8 @@ spec:
 
   resources:
     requests:
-      memory: "512Mi"
-      cpu: "1"
+      memory: 512Mi
+      cpu: 100m
 
   affinity:
     enablePodAntiAffinity: true
@@ -96,7 +96,6 @@ spec:
     podAntiAffinityType: required
     nodeSelector:
       node-role.kubernetes.io/postgres: ""
-      node-role.kubernetes.io/cpu: ""
 
   nodeMaintenanceWindow:
     inProgress: false
