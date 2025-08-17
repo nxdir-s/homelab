@@ -19,6 +19,10 @@ spec:
         port: 9093
         type: internal
         tls: true
+        authentication:
+          type: tls
+    authorization:
+      type: simple
     config:
       offsets.topic.replication.factor: 3
       transaction.state.log.replication.factor: 3
@@ -30,17 +34,17 @@ spec:
       reconciliationIntervalMs: 60000
       resources:
         requests:
-          cpu: "1"
-          memory: 500Mi
-        limits:
-          cpu: "1"
-          memory: 500Mi
+          cpu: 50m
+          memory: 128Mi
+        # limits:
+        #   cpu: "1"
+        #   memory: 500Mi
     topicOperator:
       reconciliationIntervalMs: 60000
       resources:
         requests:
-          cpu: "1"
-          memory: 500Mi
-        limits:
-          cpu: "1"
-          memory: 500Mi
+          cpu: 50m
+          memory: 128Mi
+        # limits:
+        #   cpu: "1"
+        #   memory: 500Mi
