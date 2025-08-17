@@ -2,11 +2,11 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaNodePool
 metadata:
-  name: kafka-controller
+  name: controller
   namespace: kafka
   labels:
     strimzi.io/cluster: k3s-kafka
-    app.kubernetes.io/controller: kafka-controller
+    app.kubernetes.io/controller: kafka
 spec:
   replicas: 3
   roles:

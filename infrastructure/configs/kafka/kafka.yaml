@@ -46,12 +46,16 @@ spec:
               - labelSelector:
                   matchExpressions:
                     - key: app.kubernetes.io/controller
-                      operator: Exists
+                      operator: In
+                      values:
+                        - kafka
                 topologyKey: "kubernetes.io/hostname"
               - labelSelector:
                   matchExpressions:
                     - key: app.kubernetes.io/broker
-                      operator: Exists
+                      operator: In
+                      values:
+                        - kafka
                 topologyKey: "kubernetes.io/hostname"
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
