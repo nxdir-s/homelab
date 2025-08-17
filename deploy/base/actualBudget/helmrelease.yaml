@@ -27,21 +27,22 @@ spec:
     replicaCount: 1
     strategy:
       type: Recreate
+      rollingUpdate:
+        maxSurge: "100%"
+        maxUnavailable: 0
 
-    # Persistence
     persistence:
       enabled: true
       size: 20Gi
       accessModes:
         - ReadWriteOnce
+      storageClass: "longhorn"
 
-    # File storage
     files:
       dataDirectory: /data
       server: /data/server-files
       user: /data/user-files
 
-    # Resources
     resources:
       # limits:
       #   cpu: 500m
@@ -50,8 +51,25 @@ spec:
         cpu: 200m
         memory: 256Mi
 
-    # Authentication (password-based)
     login:
       method: password
       allowedLoginMethods:
         - password
+
+    livenessProbe:
+      httpGet:
+        path: /
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+
+    readinessProbe:
+      httpGet:
+        path: /
+        port: http
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      timeoutSeconds: 3
+      failureThreshold: 3
