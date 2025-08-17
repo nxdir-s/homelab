@@ -11,25 +11,58 @@ spec:
   kafka:
     version: 4.0.0
     metadataVersion: 4.0-IV3
+    rack:
+      topologyKey: kubernetes.io/hostname
     listeners:
       - name: plain
         port: 9092
         type: internal
         tls: false
+        configuration:
+          useServiceDnsDomain: true
       - name: tls
         port: 9093
         type: internal
         tls: true
+        configuration:
+          useServiceDnsDomain: true
         authentication:
           type: tls
     authorization:
       type: simple
+      superUsers:
+        - iroe
     config:
       offsets.topic.replication.factor: 3
       transaction.state.log.replication.factor: 3
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
+    template:
+      pod:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/controller
+                        operator: Exists
+                  topologyKey: "kubernetes.io/hostname"
+              - weight: 90
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/broker
+                        operator: Exists
+                  topologyKey: "kubernetes.io/hostname"
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: node-role.kubernetes.io/cpu
+                      operator: Exists
   entityOperator:
     userOperator:
       reconciliationIntervalMs: 60000

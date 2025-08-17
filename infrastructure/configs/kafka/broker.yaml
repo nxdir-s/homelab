@@ -23,21 +23,21 @@ spec:
     # limits:
     #   memory: 64Gi
     #   cpu: "12"
-  template:
-    pod:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app.kubernetes.io/broker
-                      operator: Exists
-                topologyKey: "kubernetes.io/hostname"
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/cpu
-                    operator: Exists
+  # template:
+  #   pod:
+  #     affinity:
+  #       podAntiAffinity:
+  #         requiredDuringSchedulingIgnoredDuringExecution:
+  #           - weight: 100
+  #             podAffinityTerm:
+  #               labelSelector:
+  #                 matchExpressions:
+  #                   - key: app.kubernetes.io/broker
+  #                     operator: Exists
+  #               topologyKey: "kubernetes.io/hostname"
+  #       nodeAffinity:
+  #         requiredDuringSchedulingIgnoredDuringExecution:
+  #           nodeSelectorTerms:
+  #             - matchExpressions:
+  #                 - key: node-role.kubernetes.io/cpu
+  #                   operator: Exists
