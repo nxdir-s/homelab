@@ -2,10 +2,10 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaNodePool
 metadata:
-  name: broker
+  name: kafka-broker
   namespace: kafka
   labels:
-    strimzi.io/cluster: k3s-kafka
+    strimzi.io/cluster: k3s
     app.kubernetes.io/broker: kafka
 spec:
   replicas: 3
