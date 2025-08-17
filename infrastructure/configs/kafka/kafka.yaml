@@ -38,6 +38,8 @@ spec:
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
+    metricsConfig:
+      type: strimziMetricsReporter
     template:
       pod:
         affinity:
@@ -70,15 +72,12 @@ spec:
         requests:
           cpu: 25m
           memory: 192Mi
-        # limits:
-        #   cpu: "1"
-        #   memory: 500Mi
     topicOperator:
       reconciliationIntervalMs: 60000
       resources:
         requests:
           cpu: 25m
           memory: 192Mi
-        # limits:
-        #   cpu: "1"
-        #   memory: 500Mi
+  kafkaExporter:
+    topicRegex: ".*"
+    groupRegex: ".*"

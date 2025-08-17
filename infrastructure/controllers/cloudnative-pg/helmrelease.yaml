@@ -30,7 +30,7 @@ spec:
         namespace: cnpg-system
   values:
     monitoring:
+      podMonitorEnabled: true
       grafanaDashboard:
         create: true
         namespace: "grafana"
-      # podMonitorEnabled: true
