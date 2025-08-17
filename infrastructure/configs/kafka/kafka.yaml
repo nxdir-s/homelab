@@ -43,20 +43,16 @@ spec:
         affinity:
           podAntiAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
-              - weight: 100
-                podAffinityTerm:
-                  labelSelector:
-                    matchExpressions:
-                      - key: app.kubernetes.io/controller
-                        operator: Exists
-                  topologyKey: "kubernetes.io/hostname"
-              - weight: 90
-                podAffinityTerm:
-                  labelSelector:
-                    matchExpressions:
-                      - key: app.kubernetes.io/broker
-                        operator: Exists
-                  topologyKey: "kubernetes.io/hostname"
+              - labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/controller
+                      operator: Exists
+                topologyKey: "kubernetes.io/hostname"
+              - labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/broker
+                      operator: Exists
+                topologyKey: "kubernetes.io/hostname"
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
