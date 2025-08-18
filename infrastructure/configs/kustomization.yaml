@@ -4,5 +4,5 @@ resources:
   - ./metallb
   - ./cert-manager
   - ./longhorn
-  # - ./postgres
+  - ./postgres
   - ./kafka
