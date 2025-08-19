@@ -32,14 +32,17 @@ spec:
       type: simple
       superUsers:
         - iroe
+    jvmOptions:
+      "-Xmx": "1g"
+      "-Xms": "1g"
     config:
       offsets.topic.replication.factor: 3
       transaction.state.log.replication.factor: 3
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
-    # metricsConfig:
-    #   type: strimziMetricsReporter
+    metricsConfig:
+      type: strimziMetricsReporter
     template:
       pod:
         affinity:
@@ -63,8 +66,13 @@ spec:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
-                    - key: node-role.kubernetes.io/cpu
+                    - key: node-role.kubernetes.io/kafka
                       operator: Exists
+        tolerations:
+          - effect: NoSchedule
+            operator: Exists
+          - effect: NoExecute
+            operator: Exists
   entityOperator:
     userOperator:
       reconciliationIntervalMs: 60000
@@ -74,6 +82,7 @@ spec:
           memory: 192Mi
         limits:
           memory: 512Mi
+          cpu: 500m
     topicOperator:
       reconciliationIntervalMs: 60000
       resources:
@@ -82,6 +91,4 @@ spec:
           memory: 192Mi
         limits:
           memory: 512Mi
-  kafkaExporter:
-    topicRegex: ".*"
-    groupRegex: ".*"
+          cpu: 500m
