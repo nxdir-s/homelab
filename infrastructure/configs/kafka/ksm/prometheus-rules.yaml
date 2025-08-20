@@ -3,7 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: strimzi-kube-state-metrics
-  namespace: kafka
+  namespace: grafana
 spec:
   groups:
     - name: strimzi-kube-state-metrics

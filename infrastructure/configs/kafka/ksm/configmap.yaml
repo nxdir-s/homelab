@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: strimzi-kube-state-metrics-config
-  namespace: kafka
+  namespace: grafana
 data:
   config.yaml: |
     spec:
