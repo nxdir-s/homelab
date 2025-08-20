@@ -30,6 +30,7 @@ spec:
       node-role.kubernetes.io/cpu: ""
     resources:
       limits:
+        memory: 512Mi
       requests:
         memory: 384Mi
         cpu: 25m
