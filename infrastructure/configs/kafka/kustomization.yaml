@@ -5,3 +5,4 @@ resources:
   - controller.yaml
   - broker.yaml
   - kafka.yaml
+  - ./ksm
