@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ./metallb
   - ./cert-manager
-  - ./longhorn
+  # - ./longhorn
   - ./grafana
   # - ./postgres
   # - ./kafka
