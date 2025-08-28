@@ -39,4 +39,4 @@ spec:
       replicas: 1
     defaultSettings:
       defaultReplicaCount: 2
-      taintToleration: key1=value1:NoSchedule; key2:NoExecute
+      taintToleration: gpu=true:NoSchedule
