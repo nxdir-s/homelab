@@ -6,4 +6,4 @@ resources:
   - ./longhorn
   - ./grafana
   # - ./postgres
-  - ./kafka
+  # - ./kafka
