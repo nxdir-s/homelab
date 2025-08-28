@@ -6,7 +6,6 @@ kubectl taint nodes jetson gpu=true:NoSchedule
 kubectl label node jetson node-role.kubernetes.io/worker=
 kubectl label node jetson node-role.kubernetes.io/gpu=
 
-kubectl label nodes k3s1 k3s2 jetson node-role.kubernetes.io/kafka=
 kubectl label nodes k3s1 k3s2 k3s3 node-role.kubernetes.io/postgres=
 kubectl label nodes k3s1 k3s2 k3s3 node-role.kubernetes.io/cpu=
 
