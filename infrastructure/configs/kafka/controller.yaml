@@ -18,8 +18,7 @@ spec:
     deleteClaim: false
   resources:
     requests:
-      memory: 128Mi
       cpu: 50m
+      memory: 512Mi
     limits:
       memory: 512Mi
-      cpu: 1000m

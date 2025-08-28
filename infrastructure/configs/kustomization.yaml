@@ -4,6 +4,6 @@ resources:
   - ./metallb
   - ./cert-manager
   - ./longhorn
-  # - ./postgres
-  - ./kafka
   - ./grafana
+  # - ./postgres
+  # - ./kafka

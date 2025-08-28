@@ -29,8 +29,8 @@ spec:
     nodeSelector:
       node-role.kubernetes.io/cpu: ""
     resources:
+      requests:
+        cpu: 25m
+        memory: 512Mi
       limits:
         memory: 512Mi
-      requests:
-        memory: 384Mi
-        cpu: 25m

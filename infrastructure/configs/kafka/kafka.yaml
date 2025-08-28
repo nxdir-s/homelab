@@ -67,32 +67,30 @@ spec:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
-                    - key: node-role.kubernetes.io/cpu
+                    - key: node-role.kubernetes.io/kafka
                       operator: Exists
-        # tolerations:
-        #   - effect: NoSchedule
-        #     operator: Exists
-        #   - effect: NoExecute
-        #     operator: Exists
+        tolerations:
+          - effect: NoSchedule
+            operator: Exists
+          - effect: NoExecute
+            operator: Exists
   entityOperator:
     userOperator:
       reconciliationIntervalMs: 60000
       resources:
         requests:
-          memory: 192Mi
           cpu: 25m
+          memory: 256Mi
         limits:
           memory: 256Mi
-          cpu: 250m
     topicOperator:
       reconciliationIntervalMs: 60000
       resources:
         requests:
-          memory: 192Mi
           cpu: 25m
+          memory: 256Mi
         limits:
           memory: 256Mi
-          cpu: 250m
   kafkaExporter:
     topicRegex: ".*"
     groupRegex: ".*"
