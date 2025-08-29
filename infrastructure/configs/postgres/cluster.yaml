@@ -82,10 +82,10 @@ spec:
 
   resources:
     requests:
-      memory: 512Mi
       cpu: 100m
+      memory: 256Mi
     limits:
-      cpu: 1000m
+      memory: 256Mi
 
   affinity:
     enablePodAntiAffinity: true

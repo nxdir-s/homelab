@@ -5,5 +5,5 @@ resources:
   - ./cert-manager
   - ./longhorn
   - ./grafana
-  # - ./postgres
+  - ./postgres
   - ./kafka
