@@ -1,0 +1,14 @@
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: user.events
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: k3s
+spec:
+  partitions: 3
+  replicas: 2
+  config:
+    retention.ms: 7200000 # 2hrs
+    segment.bytes: 1073741824

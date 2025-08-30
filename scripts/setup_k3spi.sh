@@ -15,6 +15,7 @@ kubectl apply -f secrets/cf-email.yaml
 kubectl create namespace cert-manager
 kubectl create namespace longhorn-system
 kubectl create namespace kafka
+kubectl create namespace idlerpg
 
 kubectl apply -f secrets/cf-api-key.yaml -n cert-manager
 

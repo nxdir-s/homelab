@@ -1,0 +1,38 @@
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: idle-engine
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: k3s
+spec:
+  authentication:
+    type: tls
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: user.events
+          patternType: literal
+        operations:
+          - Describe
+          - Read
+        host: "*"
+      - resource:
+          type: group
+          name: userevents
+          patternType: literal
+        operations:
+          - Read
+        host: "*"
+      - resource:
+          type: topic
+          name: user.events
+          patternType: literal
+        operations:
+          - Create
+          - Describe
+          - Write
+        host: "*"
