@@ -33,7 +33,7 @@ spec:
       superUsers:
         - iroe
     jvmOptions:
-      "-Xmx": "512M"
+      "-Xmx": "256M"
       "-Xms": "128M"
     config:
       offsets.topic.replication.factor: 3
