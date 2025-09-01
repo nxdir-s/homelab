@@ -2,7 +2,7 @@
 apiVersion: access.strimzi.io/v1alpha1
 kind: KafkaAccess
 metadata:
-  name: idlrpg-access
+  name: idlerpg-access
   namespace: idlerpg
 spec:
   kafka:
