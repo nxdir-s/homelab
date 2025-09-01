@@ -29,8 +29,15 @@ spec:
         name: cloudnative-pg
         namespace: cnpg-system
   values:
+    resources:
+      requests:
+        cpu: 5m
+        memory: 56Mi
+      limits:
+        memory: 56Mi
+
     monitoring:
-      podMonitorEnabled: true
+      podMonitorEnabled: false
       grafanaDashboard:
-        create: true
+        create: false
         namespace: "grafana"
