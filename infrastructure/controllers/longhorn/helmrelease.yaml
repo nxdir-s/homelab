@@ -49,3 +49,5 @@ spec:
       upgradeChecker: false
       allowCollectingLonghornUsageMetrics: false
       guaranteedInstanceManagerCPU: 5
+      guaranteedEngineManagerCPU: 5
+      guaranteedReplicaManagerCPU: 5
