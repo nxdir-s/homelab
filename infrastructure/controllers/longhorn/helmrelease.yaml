@@ -29,31 +29,8 @@ spec:
       version: v1.9.1
   interval: 30m
   values:
-    longhornManager:
-      resources:
-        requests:
-          cpu: 30m
-          memory: 192Mi
-        limits:
-          memory: 192Mi
-
-    longhornDriver:
-      resources:
-        requests:
-          cpu: 5m
-          memory: 16Mi
-        limits:
-          memory: 16Mi
-
     longhornUI:
       replicas: 1
-      resources:
-        requests:
-          cpu: 5m
-          memory: 8Mi
-        limits:
-          memory: 8Mi
-
     longhornConversionWebhook:
       replicas: 1
     longhornAdmissionWebhook:
@@ -61,5 +38,14 @@ spec:
     longhornRecoveryBackend:
       replicas: 1
 
+    preUpgradeChecker:
+      # -- Setting that allows Longhorn to perform pre-upgrade checks. Disable this setting when installing Longhorn using Argo CD or other GitOps solutions.
+      jobEnabled: false
+      # -- Setting that allows Longhorn to perform upgrade version checks after starting the Longhorn Manager DaemonSet Pods. Disabling this setting also disables `preUpgradeChecker.jobEnabled`. Longhorn recommends keeping this setting enabled.
+      upgradeVersionCheck: false
+
     defaultSettings:
       defaultReplicaCount: 2
+      upgradeChecker: false
+      allowCollectingLonghornUsageMetrics: false
+      guaranteedInstanceManagerCPU: 5
