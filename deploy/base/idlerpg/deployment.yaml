@@ -15,7 +15,10 @@ metadata:
   name: idlerpg
   namespace: idlerpg
 spec:
+  interval: 30m
+  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: idlerpg
   path: ./deploy
+  prune: true
