@@ -3,6 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: idlerpg
+  namespace: idlerpg
 spec:
   url: https://github.com/nxdir-s/idlerpg
   ref:
@@ -12,6 +13,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: idlerpg
+  namespace: idlerpg
 spec:
   sourceRef:
     kind: GitRepository
