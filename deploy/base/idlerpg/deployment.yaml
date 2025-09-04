@@ -5,6 +5,7 @@ metadata:
   name: idlerpg
   namespace: idlerpg
 spec:
+  interval: 24h
   url: https://github.com/nxdir-s/idlerpg
   ref:
     branch: main
