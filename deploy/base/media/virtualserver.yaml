@@ -1,0 +1,22 @@
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: jellyfin
+  namespace: servarr
+spec:
+  host: jellyfin.nxdir.dev
+  tls:
+    secret: jellyfin-tls
+    cert-manager:
+      cluster-issuer: letsencrypt-issuer
+  externalDNS:
+    enable: true
+  upstreams:
+    - name: jellyfin
+      service: jellyfin
+      port: 8096
+  routes:
+    - path: /
+      action:
+        pass: jellyfin
