@@ -116,10 +116,10 @@ spec:
     # -- Resource requests and limits for the Jellyfin container.
     resources:
       requests:
-        nvidia.com/gpu: 1
         cpu: 100m
         memory: 128Mi
       limits:
+        nvidia.com/gpu: 1
         memory: 128Mi
 
     # -- Configure liveness probe for Jellyfin.
