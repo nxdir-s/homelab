@@ -1,0 +1,112 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: jellyfin-longhorn
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+parameters:
+  numberOfReplicas: "1"
+  dataLocality: "strict-local"
+  staleReplicaTimeout: "2880" # 48 hours in minutes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: jellyfin
+  name: jellyfin-pvc
+  namespace: servarr
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: jellyfin-longhorn
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jellyfin
+    app.kubernetes.io/instance: jellyfin
+    app.kubernetes.io/name: jellyfin
+  name: jellyfin
+  namespace: servarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+        app.kubernetes.io/name: jellyfin
+    pod:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/gpu
+                    operator: Exists
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+    spec:
+      containers:
+        - name: jellyfin
+          image: jellyfin/jellyfin:latest
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: America/New_York
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+          ports:
+            - containerPort: 8096
+              name: http
+              protocol: TCP
+          securityContext:
+            privileged: true # Needed for GPU access
+          volumeMounts:
+            - name: jellyfin
+              mountPath: /config
+              subPath: config
+            - name: jellyfin
+              mountPath: /cache
+              subPath: cache
+            - name: jellyfin
+              mountPath: /media
+              subPath: media
+      volumes:
+        - name: jellyfin
+          persistentVolumeClaim:
+            claimName: jellyfin-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: jellyfin
+  name: jellyfin
+  namespace: servarr
+spec:
+  ports:
+    - name: http-tcp
+      port: 8096
+      protocol: TCP
+      targetPort: 8096
+    - name: http-udp
+      port: 8096
+      protocol: UDP
+      targetPort: 8096
+  selector:
+    app: jellyfin
