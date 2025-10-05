@@ -29,20 +29,16 @@ spec:
       version: v1.9.1
   interval: 30m
   values:
+    global:
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+
     longhornUI:
       replicas: 1
-    longhornManager:
-      tolerations:
-        - effect: NoSchedule
-          operator: Exists
-        - effect: NoExecute
-          operator: Exists
-    longhornDriver:
-      tolerations:
-        - effect: NoSchedule
-          operator: Exists
-        - effect: NoExecute
-          operator: Exists
+
     longhornConversionWebhook:
       replicas: 1
     longhornAdmissionWebhook:
@@ -55,6 +51,12 @@ spec:
       jobEnabled: false
       # -- Setting that allows Longhorn to perform upgrade version checks after starting the Longhorn Manager DaemonSet Pods. Disabling this setting also disables `preUpgradeChecker.jobEnabled`. Longhorn recommends keeping this setting enabled.
       upgradeVersionCheck: false
+
+    csi:
+      attacherReplicaCount: 2
+      provisionerReplicaCount: 2
+      resizerReplicaCount: 2
+      snapshotterReplicaCount: 2
 
     defaultSettings:
       defaultReplicaCount: 2
