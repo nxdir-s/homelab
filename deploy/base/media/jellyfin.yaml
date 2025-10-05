@@ -6,7 +6,7 @@ metadata:
   namespace: servarr
 spec:
   interval: 24h
-  url: https://jellyfin.github.io/charts
+  url: https://jellyfin.github.io/jellyfin-helm
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
