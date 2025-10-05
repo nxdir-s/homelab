@@ -31,6 +31,18 @@ spec:
   values:
     longhornUI:
       replicas: 1
+    longhornManager:
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+    longhornDriver:
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
     longhornConversionWebhook:
       replicas: 1
     longhornAdmissionWebhook:
