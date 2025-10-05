@@ -15,7 +15,9 @@ parameters:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jellyfin
+  labels:
+    app: jellyfin
+  name: jellyfin-pvc
   namespace: servarr
 spec:
   accessModes:
@@ -87,7 +89,7 @@ spec:
       volumes:
         - name: jellyfin
           persistentVolumeClaim:
-            claimName: jellyfin
+            claimName: jellyfin-pvc
 ---
 apiVersion: v1
 kind: Service
