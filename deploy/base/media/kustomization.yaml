@@ -4,4 +4,4 @@ resources:
   - namespace.yaml
   - storage.yaml
   - jellyfin.yaml
-  # - virtualserver.yaml
+  - virtualserver.yaml
