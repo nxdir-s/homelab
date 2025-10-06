@@ -18,7 +18,7 @@ spec:
   chart:
     spec:
       chart: jellyfin
-      version: "2.3.0"
+      version: v2.3.0
       sourceRef:
         kind: HelmRepository
         name: jellyfin
@@ -102,14 +102,14 @@ spec:
         memory: 128Mi
 
     # -- Configure liveness probe for Jellyfin.
-    livenessProbe:
-      initialDelaySeconds: 10
-      tcpSocket:
-        port: http
-      # successThreshold: 1
-      # failureThreshold: 3
-      # timeoutSeconds: 1
-      # periodSeconds: 10
+    # livenessProbe:
+    #   initialDelaySeconds: 10
+    #   tcpSocket:
+    #     port: http
+    # successThreshold: 1
+    # failureThreshold: 3
+    # timeoutSeconds: 1
+    # periodSeconds: 10
 
     # -- Configure readiness probe for Jellyfin.
     readinessProbe:
