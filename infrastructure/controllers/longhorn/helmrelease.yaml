@@ -52,6 +52,6 @@ spec:
       defaultReplicaCount: "2"
       upgradeChecker: false
       allowCollectingLonghornUsageMetrics: false
-      guaranteedInstanceManagerCPU: 5
+      guaranteedInstanceManagerCPU: "5"
       nodeDrainPolicy: "block-for-eviction-if-contains-last-replica"
       taintToleration: gpu=true:NoSchedule
