@@ -39,6 +39,20 @@ spec:
     longhornRecoveryBackend:
       replicas: 1
 
+    longhornManager:
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+
+    longhornDriver:
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+
     persistence:
       defaultClassReplicaCount: 2
 
