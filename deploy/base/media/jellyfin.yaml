@@ -112,14 +112,14 @@ spec:
     # periodSeconds: 10
 
     # -- Configure readiness probe for Jellyfin.
-    readinessProbe:
-      initialDelaySeconds: 10
-      tcpSocket:
-        port: http
-      # successThreshold: 1
-      # failureThreshold: 3
-      # timeoutSeconds: 1
-      # periodSeconds: 10
+    # readinessProbe:
+    #   initialDelaySeconds: 10
+    #   tcpSocket:
+    #     port: http
+    # successThreshold: 1
+    # failureThreshold: 3
+    # timeoutSeconds: 1
+    # periodSeconds: 10
 
     # -- Additional volumes to mount in the Jellyfin pod.
     volumes: []
