@@ -135,7 +135,7 @@ spec:
     # -- Additional volume mounts for the Jellyfin container.
     volumeMounts:
       - name: nfs-share
-        mountPath: /media
+        mountPath: /mnt/media
     # - name: foo
     #   mountPath: "/etc/foo"
     #   readOnly: true
