@@ -127,6 +127,9 @@ spec:
         nfs:
           server: 192.168.1.156
           path: /data
+      # - name: jellyfin-local
+      #   persistentVolumeClaim:
+      #     claimName: jellyfin-local-pvc
     # - name: foo
     #   secret:
     #     secretName: mysecret
@@ -136,6 +139,9 @@ spec:
     volumeMounts:
       - name: nfs-share
         mountPath: /mnt/media
+      # - name: jellyfin-local
+      #   mountPath: /config
+      #   subPath: config
     # - name: foo
     #   mountPath: "/etc/foo"
     #   readOnly: true
@@ -172,29 +178,29 @@ spec:
     persistence:
       config:
         # -- set to false to use emptyDir
-        enabled: false
+        enabled: true
         accessMode: ReadWriteOnce
         size: 5Gi
         # -- Custom annotations to be added to the PVC
         annotations: {}
         # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
-        storageClass: jellyfin-longhorn
+        storageClass: ""
         ## -- Use an existing PVC for this mount
-        # existingClaim: ''
+        existingClaim: jellyfin-local-pvc
       media:
         # -- set to false to use emptyDir
-        enabled: false
+        enabled: true
         # -- Type of volume for media storage (pvc, hostPath, emptyDir). If 'enabled' is false, 'emptyDir' is used regardless of this setting.
-        type: pvc
+        type: hostPath
         # -- Path on the host node for media storage, only used if type is 'hostPath'.
-        hostPath: ""
+        hostPath: "/mnt/media"
         # -- PVC specific settings, only used if type is 'pvc'.
         accessMode: ReadWriteOnce
-        size: 25Gi
+        size: 100Gi
         # -- Custom annotations to be added to the PVC
         annotations: {}
         # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
-        storageClass: jellyfin-longhorn
+        storageClass: local-path
         ## -- Use an existing PVC for this mount
         # existingClaim: ''
 
