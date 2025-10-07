@@ -51,5 +51,10 @@ metadata:
   name: jellyfin-local-pvc
   namespace: servarr
 spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
   storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
   volumeName: jellyfin-local-pv
