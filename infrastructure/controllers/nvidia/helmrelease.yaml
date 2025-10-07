@@ -24,11 +24,15 @@ spec:
         name: nvidia-device-plugin
         namespace: nvidia-system
   values:
-    sharing:
-      mps:
-        resources:
-          - name: nvidia.com/gpu
-            replicas: 10
+    config:
+      map:
+        default: |-
+          version: v1
+          sharing:
+            mps:
+              resources:
+                - name: nvidia.com/gpu
+                  replicas: 10
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
