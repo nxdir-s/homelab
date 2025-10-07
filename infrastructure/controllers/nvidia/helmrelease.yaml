@@ -29,10 +29,10 @@ spec:
         default: |-
           version: v1
           sharing:
-            mps:
+            timeSlicing:
               resources:
-                - name: nvidia.com/gpu
-                  replicas: 10
+              - name: nvidia.com/gpu
+                replicas: 10
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
