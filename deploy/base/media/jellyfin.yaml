@@ -122,14 +122,20 @@ spec:
     # periodSeconds: 10
 
     # -- Additional volumes to mount in the Jellyfin pod.
-    volumes: []
+    volumes:
+      - name: nfs-share
+        nfs:
+          server: 192.168.1.156
+          path: /data
     # - name: foo
     #   secret:
     #     secretName: mysecret
     #     optional: false
 
     # -- Additional volume mounts for the Jellyfin container.
-    volumeMounts: []
+    volumeMounts:
+      - name: nfs-share
+        mountPath: /media
     # - name: foo
     #   mountPath: "/etc/foo"
     #   readOnly: true
