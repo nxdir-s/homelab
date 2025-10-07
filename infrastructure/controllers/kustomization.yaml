@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ./metallb
   - ./longhorn
+  - ./nvidia
   - ./nginx-ingress
   - ./cert-manager
   - ./external-dns
