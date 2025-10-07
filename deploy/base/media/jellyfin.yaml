@@ -53,7 +53,7 @@ spec:
       # runAsUser: 1000
 
     # -- Define a custom runtimeClassName for the pod.
-    runtimeClassName: ""
+    runtimeClassName: nvidia
 
     # -- Define a priorityClassName for the pod.
     priorityClassName: ""
@@ -99,6 +99,7 @@ spec:
         cpu: 100m
         memory: 2Gi
       limits:
+        nvidia.com/gpu: 1
         memory: 4Gi
 
     # -- Configure liveness probe for Jellyfin.
@@ -127,9 +128,6 @@ spec:
         nfs:
           server: 192.168.1.156
           path: /data
-      # - name: jellyfin-local
-      #   persistentVolumeClaim:
-      #     claimName: jellyfin-local-pvc
     # - name: foo
     #   secret:
     #     secretName: mysecret
@@ -139,9 +137,6 @@ spec:
     volumeMounts:
       - name: nfs-share
         mountPath: /mnt/media
-      # - name: jellyfin-local
-      #   mountPath: /config
-      #   subPath: config
     # - name: foo
     #   mountPath: "/etc/foo"
     #   readOnly: true
@@ -173,7 +168,11 @@ spec:
       # -- Additional arguments for the entrypoint command.
       args: []
       # -- Additional environment variables for the container.
-      env: []
+      env:
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: all
+        - name: NVIDIA_DRIVER_CAPABILITIES
+          value: all
 
     persistence:
       config:
