@@ -3,7 +3,7 @@ apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
   name: jellyfin
-  namespace: servarr
+  namespace: jellyfin
 spec:
   host: jellyfin.nxdir.dev
   tls:
