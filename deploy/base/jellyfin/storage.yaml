@@ -20,7 +20,7 @@ spec:
   storageClassName: local-storage
   claimRef:
     name: jellyfin-local-pvc
-    namespace: servarr
+    namespace: jellyfin
   local:
     path: /mnt/jellyfin
   nodeAffinity:
