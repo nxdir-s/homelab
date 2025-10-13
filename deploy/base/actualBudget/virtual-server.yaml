@@ -14,8 +14,8 @@ spec:
     enable: true
   upstreams:
     - name: actualbudget
-      service: actual-budget-actualbudget
-      port: 5006
+      service: actualbudget
+      port: 80
   routes:
     - path: /
       action:
