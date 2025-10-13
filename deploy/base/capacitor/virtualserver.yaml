@@ -2,7 +2,7 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: capacitor
+  name: capacitor-next
   namespace: flux-system
 spec:
   host: capacitor.nxdir.dev
@@ -14,8 +14,8 @@ spec:
     enable: true
   upstreams:
     - name: capacitor
-      service: capacitor
-      port: 9000
+      service: capacitor-next
+      port: 80
   routes:
     - path: /
       action:
