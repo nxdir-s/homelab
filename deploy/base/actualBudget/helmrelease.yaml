@@ -36,7 +36,7 @@ spec:
       size: 20Gi
       accessModes:
         - ReadWriteOnce
-      storageClass: "budget-longhorn"
+      storageClass: "longhorn"
 
     files:
       dataDirectory: /data
