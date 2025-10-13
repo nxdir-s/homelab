@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: actual-budget
-  namespace: finance
+  namespace: budget
 spec:
   interval: 24h
   url: https://community-charts.github.io/helm-charts
@@ -12,17 +12,17 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: actual-budget
-  namespace: finance
+  namespace: budget
 spec:
   interval: 30m
   chart:
     spec:
       chart: actualbudget
-      version: "1.8.1"
+      version: v1.8.3
       sourceRef:
         kind: HelmRepository
         name: actual-budget
-        namespace: finance
+        namespace: budget
   values:
     replicaCount: 1
     strategy:
@@ -36,7 +36,7 @@ spec:
       size: 20Gi
       accessModes:
         - ReadWriteOnce
-      storageClass: "longhorn"
+      storageClass: "budget-longhorn"
 
     files:
       dataDirectory: /data
@@ -44,32 +44,13 @@ spec:
       user: /data/user-files
 
     resources:
-      # limits:
-      #   cpu: 500m
-      #   memory: 1Gi
       requests:
-        cpu: 200m
+        cpu: 50m
+        memory: 256Mi
+      limits:
         memory: 256Mi
 
     login:
       method: password
       allowedLoginMethods:
         - password
-
-    livenessProbe:
-      httpGet:
-        path: /
-        port: http
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-
-    readinessProbe:
-      httpGet:
-        path: /
-        port: http
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      timeoutSeconds: 3
-      failureThreshold: 3
