@@ -1,0 +1,22 @@
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: capacitor
+  namespace: flux-system
+spec:
+  host: capacitor.nxdir.dev
+  tls:
+    secret: capacitor-tls
+    cert-manager:
+      cluster-issuer: letsencrypt-issuer
+  externalDNS:
+    enable: true
+  upstreams:
+    - name: capacitor
+      service: capacitor
+      port: 9000
+  routes:
+    - path: /
+      action:
+        pass: capacitor
