@@ -32,9 +32,7 @@ spec:
         maxUnavailable: 0
 
     service:
-      type: ClusterIP
       port: 80
-      name: actualbudget
 
     persistence:
       enabled: true
