@@ -17,6 +17,8 @@ kubectl create namespace longhorn-system
 kubectl create namespace kafka
 kubectl create namespace idlerpg
 
+kubectl apply -f secrets/dockerconfig.yaml -n idlerpg
+
 kubectl apply -f secrets/cf-api-key.yaml -n cert-manager
 
 kubectl create secret generic basic-auth --from-file=secrets/auth -n longhorn-system
