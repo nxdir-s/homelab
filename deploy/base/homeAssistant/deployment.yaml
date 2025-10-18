@@ -1,40 +1,20 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: home-assistant
----
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: home-assistant
-  name: home-assistant
-spec:
-  selector:
-    app: home-assistant
-  type: ClusterIP
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 8123
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: home-assistant
-  name: home-assistant
+  name: homeassistant
+  namespace: homeassistant
   labels:
-    app: home-assistant
+    app: homeassistant
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: home-assistant
+      app: homeassistant
   template:
     metadata:
       labels:
-        app: home-assistant
+        app: homeassistant
     spec:
       containers:
         - name: home-assistant
