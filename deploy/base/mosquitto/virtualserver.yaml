@@ -1,0 +1,22 @@
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: mosquitto
+  namespace: mosquitto
+spec:
+  host: mqtt.nxdir.dev
+  tls:
+    secret: mosquitto-tls
+    cert-manager:
+      cluster-issuer: letsencrypt-issuer
+  externalDNS:
+    enable: true
+  upstreams:
+    - name: mosquitto
+      service: mosquitto
+      port: 1833
+  routes:
+    - path: /
+      action:
+        pass: mosquitto

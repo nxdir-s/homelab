@@ -1,0 +1,26 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: zigbee2mqtt
+  namespace: zigbee
+spec:
+  interval: 24h
+  url: https://charts.zigbee2mqtt.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+  namespace: zigbee
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: zigbee2mqtt
+      version: v1.37.1
+      sourceRef:
+        kind: HelmRepository
+        name: zigbee2mqtt
+        namespace: homeassistant
+  values: ... your settings
