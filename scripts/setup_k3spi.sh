@@ -21,6 +21,7 @@ kubectl apply -f secrets/cf-api-key.yaml -n cert-manager
 kubectl apply -f secrets/cluster-issuer.yaml -n cert-manager
 
 kubectl apply -f secrets/dockerconfig.yaml -n idlerpg
+kubectl apply -f secrets/idlerpg-auth.yaml
 
 kubectl create secret generic basic-auth --from-file=secrets/auth -n longhorn-system
 
