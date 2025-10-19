@@ -2,48 +2,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: homeassistant
+  name: home-assistant
   namespace: homeassistant
   labels:
-    app: homeassistant
+    app.kubernetes.io/name: home-assistant
 spec:
   replicas: 1
+  serviceName: home-assistant
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
-      app: homeassistant
+      app.kubernetes.io/name: home-assistant
   template:
     metadata:
       labels:
-        app: homeassistant
+        app.kubernetes.io/name: home-assistant
     spec:
+      # imagePullSecrets:
+      #   - name: ghcr-secret
       containers:
         - name: home-assistant
-          image: homeassistant/home-assistant:2025.5.3
+          image: ghcr.io/home-assistant/home-assistant:2025.3.3
+          imagePullPolicy: IfNotPresent
           resources:
             requests:
               memory: 256Mi
             limits:
               memory: 256Mi
           ports:
-            - containerPort: 8123
+            - name: http
+              containerPort: 8123
+              protocol: TCP
           volumeMounts:
-            - mountPath: /config
-              name: config
-            - mountPath: /config/configuration.yaml
-              subPath: configuration.yaml
-              name: configmap-file
-            - mountPath: /config/automations.yaml
-              subPath: automations.yaml
-              name: configmap-file
-            - mountPath: /media
-              name: media-volume
-            - mountPath: /run/dbus
-              name: d-bus
-            #   readOnly: true
-            - mountPath: /dev/ttyUSB1
-              name: zigbee
-            - name: data-volume
-              mountPath: /data
+            - name: homeassistant
+              mountPath: /config
           securityContext:
             privileged: true
             capabilities:
@@ -53,82 +46,6 @@ spec:
                 - SYS_ADMIN
       hostNetwork: true
       volumes:
-        - name: config
+        - name: homeassistant
           persistentVolumeClaim:
-            claimName: home-assistant-pvc
-        - name: media-volume
-          hostPath:
-            path: /tmp/media
-        - name: configmap-file
-          configMap:
-            name: home-assistant-configmap
-        - name: d-bus
-          hostPath:
-            path: /run/dbus
-        - name: data-volume
-          hostPath:
-            path: /tmp/media
-        - name: zigbee
-          hostPath:
-            path: /dev/ttyACM0
----
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: home-assistant
-  name: zwavejs2mqtt
-spec:
-  selector:
-    app: zwavejs2mqtt
-  type: NodePort
-  ports:
-    - name: http
-      protocol: TCP
-      port: 8091
-      targetPort: 8091
-      nodePort: 30091
-    - name: ws
-      protocol: TCP
-      port: 3000
-      targetPort: 3000
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  namespace: home-assistant
-  name: zwavejs2mqtt
-  labels:
-    app: zwavejs2mqtt
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: zwavejs2mqtt
-  template:
-    metadata:
-      labels:
-        app: zwavejs2mqtt
-    spec:
-      containers:
-        - name: zwavejs2mqtt
-          image: zwavejs/zwavejs2mqtt:10.6.1
-          ports:
-            - containerPort: 8091
-            - containerPort: 3000
-          volumeMounts:
-            - mountPath: /usr/src/app/store
-              name: configuration
-            - mountPath: /dev/ttyACM0
-              name: zwave
-          securityContext:
-            privileged: true
-      volumes:
-        - name: configuration
-          persistentVolumeClaim:
-            claimName: zwavejs2mqtt-pvc
-        #        hostPath:
-        #          path: /tmp/zwavejs2mqtt
-        #          type: DirectoryOrCreate
-        - name: zwave
-          hostPath:
-            path: /dev/ttyACM0
+            claimName: homeassistant-pvc

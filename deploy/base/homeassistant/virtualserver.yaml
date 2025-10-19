@@ -1,0 +1,22 @@
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: home-assistant
+  namespace: homeassistant
+spec:
+  host: ha.nxdir.dev
+  tls:
+    secret: homeassistant-tls
+    cert-manager:
+      cluster-issuer: letsencrypt-issuer
+  externalDNS:
+    enable: true
+  upstreams:
+    - name: homeassistant
+      service: home-assistant
+      port: 80
+  routes:
+    - path: /
+      action:
+        pass: homeassistant

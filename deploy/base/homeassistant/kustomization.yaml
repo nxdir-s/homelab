@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - storage.yaml
-  - homeassistant.yaml
+  - deployment.yaml
+  - service.yaml
   - virtualserver.yaml
