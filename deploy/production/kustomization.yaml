@@ -4,4 +4,4 @@ resources:
   - ../base/jellyfin
   - ../base/budget
   - ../base/homeassistant
-  - ../base/idlerpg
+  # - ../base/idlerpg
