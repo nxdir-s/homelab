@@ -5,8 +5,8 @@ metadata:
   name: idlerpg
   namespace: idlerpg
 spec:
-  interval: 24h
-  url: https://github.com/nxdir-s/idlerpg
+  interval: 1m
+  url: ssh://git@github.com:22/nxdir-s/idlerpg.git
   secretRef:
     name: idlerpg-auth
   ref:
@@ -18,10 +18,7 @@ metadata:
   name: idlerpg
   namespace: idlerpg
 spec:
-  interval: 30m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: idlerpg
   path: ./deploy
-  prune: true
