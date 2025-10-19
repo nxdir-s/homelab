@@ -18,7 +18,12 @@ metadata:
   name: idlerpg
   namespace: idlerpg
 spec:
+  interval: 2m
+  targetNamespace: idlerpg
   sourceRef:
     kind: GitRepository
     name: idlerpg
+    namespace: idlerpg
   path: ./deploy
+  prune: true
+  timeout: 1m
