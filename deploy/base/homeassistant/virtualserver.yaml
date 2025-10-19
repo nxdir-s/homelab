@@ -15,7 +15,7 @@ spec:
   upstreams:
     - name: homeassistant
       service: home-assistant
-      port: 8080
+      port: 8123
   routes:
     - path: /
       action:
