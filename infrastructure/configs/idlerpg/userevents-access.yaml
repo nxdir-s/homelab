@@ -1,0 +1,16 @@
+---
+apiVersion: access.strimzi.io/v1alpha1
+kind: KafkaAccess
+metadata:
+  name: userevents-kafka-access
+  namespace: idlerpg
+spec:
+  kafka:
+    name: k3s
+    namespace: kafka
+    listener: tls
+  user:
+    kind: KafkaUser
+    apiGroup: kafka.strimzi.io
+    name: idle-userevents
+    namespace: kafka
