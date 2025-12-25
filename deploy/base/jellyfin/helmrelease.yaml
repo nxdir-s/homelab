@@ -38,13 +38,11 @@ spec:
     podLabels: {}
 
     # -- Security context for the pod.
-    podSecurityContext:
-      {}
+    podSecurityContext: {}
       # fsGroup: 2000
 
     # -- Security context for the container.
-    securityContext:
-      {}
+    securityContext: {}
       # capabilities:
       #   drop:
       #   - ALL
@@ -126,8 +124,8 @@ spec:
     volumes:
       - name: nfs-share
         nfs:
-          server: 192.168.1.156
-          path: /data
+          server: 10.7.1.175
+          path: /var/nfs/shared/media
     # - name: foo
     #   secret:
     #     secretName: mysecret
@@ -136,7 +134,7 @@ spec:
     # -- Additional volume mounts for the Jellyfin container.
     volumeMounts:
       - name: nfs-share
-        mountPath: /mnt/media
+        mountPath: /media
     # - name: foo
     #   mountPath: "/etc/foo"
     #   readOnly: true
@@ -168,11 +166,11 @@ spec:
       # -- Additional arguments for the entrypoint command.
       args: []
       # -- Additional environment variables for the container.
-      env:
-        - name: NVIDIA_VISIBLE_DEVICES
-          value: all
-        - name: NVIDIA_DRIVER_CAPABILITIES
-          value: all
+      env: []
+        # - name: NVIDIA_VISIBLE_DEVICES
+        #   value: all
+        # - name: NVIDIA_DRIVER_CAPABILITIES
+        #   value: all
 
     persistence:
       config:

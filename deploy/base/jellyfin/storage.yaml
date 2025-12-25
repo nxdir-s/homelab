@@ -22,7 +22,7 @@ spec:
     name: jellyfin-local-pvc
     namespace: jellyfin
   local:
-    path: /mnt/jellyfin
+    path: /jellyfin
   nodeAffinity:
     required:
       nodeSelectorTerms:
