@@ -97,7 +97,7 @@ spec:
         cpu: 100m
         memory: 2Gi
       limits:
-        nvidia.com/gpu: 1
+        # nvidia.com/gpu: 1
         memory: 4Gi
 
     # -- Configure liveness probe for Jellyfin.
