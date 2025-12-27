@@ -113,7 +113,6 @@ spec:
       config:
         create: true
         name: device-plugin-config
-        data: {}
         data:
           default: |-
             version: v1
