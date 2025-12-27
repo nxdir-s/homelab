@@ -2,46 +2,129 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: nvidia-device-plugin
+  name: gpu-operator
   namespace: nvidia-system
 spec:
   interval: 24h
-  url: https://nvidia.github.io/k8s-device-plugin
+  url: https://helm.ngc.nvidia.com/nvidia
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: nvidia-device-plugin
+  name: gpu-operator
   namespace: nvidia-system
 spec:
   interval: 30m
   chart:
     spec:
-      chart: nvidia-device-plugin
-      version: v0.17.1
+      chart: gpu-operator
+      version: v25.10.1
       sourceRef:
         kind: HelmRepository
-        name: nvidia-device-plugin
+        name: gpu-operator
         namespace: nvidia-system
   values:
-    config:
-      map:
-        default: |-
-          version: v1
-          sharing:
-            timeSlicing:
-              resources:
-              - name: nvidia.com/gpu
-                replicas: 10
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: node-role.kubernetes.io/gpu
-                  operator: Exists
-    tolerations:
-      - effect: NoSchedule
-        operator: Exists
-      - effect: NoExecute
-        operator: Exists
+    daemonsets:
+      priorityClassName: system-node-critical
+      tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
+      updateStrategy: "RollingUpdate"
+      rollingUpdate:
+        maxUnavailable: "1"
+
+    validator:
+      repository: nvcr.io/nvidia
+      image: gpu-operator
+      # If version is not specified, then default is to use chart.AppVersion
+      #version: ""
+      imagePullPolicy: IfNotPresent
+      imagePullSecrets: []
+      env: []
+      args: []
+      resources: {}
+      plugin:
+        env: []
+
+    operator:
+      repository: nvcr.io/nvidia
+      image: gpu-operator
+      # If version is not specified, then default is to use chart.AppVersion
+      #version: ""
+      imagePullPolicy: IfNotPresent
+      imagePullSecrets: []
+      priorityClassName: system-node-critical
+      runtimeClass: nvidia
+      use_ocp_driver_toolkit: false
+      # cleanup CRD on chart un-install
+      cleanupCRD: false
+      # upgrade CRD on chart upgrade, requires --disable-openapi-validation flag
+      # to be passed during helm upgrade.
+      upgradeCRD: true
+      initContainer:
+        repository: nvcr.io/nvidia
+        image: cuda
+        version: 13.0.1-base-ubi9
+        imagePullPolicy: IfNotPresent
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Equal"
+          value: ""
+          effect: "NoSchedule"
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Equal"
+          value: ""
+          effect: "NoSchedule"
+      annotations:
+        openshift.io/scc: restricted-readonly
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: "node-role.kubernetes.io/master"
+                    operator: In
+                    values: [""]
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: "node-role.kubernetes.io/control-plane"
+                    operator: In
+                    values: [""]
+      resources:
+        requests:
+          cpu: 200m
+          memory: 256Mi
+        limits:
+          memory: 256Mi
+
+    devicePlugin:
+      enabled: true
+      repository: nvcr.io/nvidia
+      image: k8s-device-plugin
+      version: v0.18.1
+      imagePullPolicy: IfNotPresent
+      imagePullSecrets: []
+      args: []
+      env: []
+      resources: {}
+      config:
+        create: true
+        name: device-plugin-config
+        data: {}
+        data:
+          default: |-
+            version: v1
+            flags:
+              migStrategy: none
+            sharing:
+              timeSlicing:
+                resources:
+                - name: nvidia.com/gpu
+                  replicas: 4
+      # MPS related configuration for the plugin
+      mps:
+        # MPS root path on the host
+        root: "/run/nvidia/mps"
